@@ -1,20 +1,18 @@
 // Function to check and show birthday message
 async function checkAndShowBirthdayMessage() {
-  const userEmail = frappe.session.user;
-
+  const userEmail = window.frappe.session.user
+  if(userEmail=="Administrator") {
+      return
+  }
   try {
-
-      // Fetch the user's birth date
       let response = await frappe.db.get_value('Employee', { 'user_id': userEmail }, ['date_of_birth', 'name']);
       if (!response.message || !response.message.date_of_birth) {
           console.log("Birth date not found");
           return;
       }
-
       const all_messges = await frappe.db.get_list('Chatnext Broadcast', {
         fields: ['name'],filters: {event_doctype: 'Employee',docname: response.message.name, seen: 0}
       });
-
       for (let i = 0; i < all_messges.length; i++) {
           // Check if the message has been seen before
           const seenResponse = await frappe.db.get_value('Chatnext Broadcast', { 'name': all_messges[i].name }, ['*']);
@@ -61,10 +59,14 @@ async function checkAndShowBirthdayMessage() {
   } catch (error) {
       console.error("Error fetching birth date:", error);
   }
+// }, 100);
 }
 
+setTimeout(() => {
+  checkAndShowBirthdayMessage();
+}, 1000);
 
-checkAndShowBirthdayMessage();
+// checkAndShowBirthdayMessage();
 
 
 
