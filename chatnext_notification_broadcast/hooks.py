@@ -26,8 +26,7 @@ app_license = "mit"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/chatnext_notification_broadcast/css/chatnext_notification_broadcast.css"
-# app_include_js = "/assets/chatnext_notification_broadcast/js/chatnext_notification_broadcast.js"
-
+app_include_js = "/assets/chatnext_notification_broadcast/js/notification_broadcast.js"
 # include js, css files in header of web template
 # web_include_css = "/assets/chatnext_notification_broadcast/css/chatnext_notification_broadcast.css"
 # web_include_js = "/assets/chatnext_notification_broadcast/js/chatnext_notification_broadcast.js"
@@ -148,6 +147,13 @@ app_license = "mit"
 # Scheduled Tasks
 # ---------------
 
+scheduler_events = {
+    "cron": {
+        "0 8 * * *": [
+            "chatnext_notification_broadcast.chatnext_notification_broadcast.doctype.chatnext_broadcast.chatnext_broadcast.get_today_birthdays"
+        ]
+    }
+}
 # scheduler_events = {
 # 	"all": [
 # 		"chatnext_notification_broadcast.tasks.all"
