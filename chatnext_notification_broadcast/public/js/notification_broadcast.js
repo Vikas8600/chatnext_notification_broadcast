@@ -5,13 +5,8 @@ async function checkAndShowBirthdayMessage() {
       return
   }
   try {
-      let response = await frappe.db.get_value('Employee', { 'user_id': userEmail }, ['date_of_birth', 'name']);
-      if (!response.message || !response.message.date_of_birth) {
-          console.log("Birth date not found");
-          return;
-      }
       const all_messges = await frappe.db.get_list('Event Broadcast', {
-        fields: ['name'],filters: {event_doctype: 'Employee',docname: response.message.name, seen: 0}
+        fields: ['name'],filters: {event_doctype: 'User',docname: userEmail, seen: 0}
       });
       for (let i = 0; i < all_messges.length; i++) {
           // Check if the message has been seen before
@@ -68,9 +63,8 @@ setTimeout(() => {
 
 
 $(document).on('app_ready', function () {
-  frappe.realtime.on("event_notification", async(data) => {
+  frappe.realtime.on("event_notification", (data) => {
     const userEmail = window.frappe.session.user;
-    let empResponse = await frappe.db.get_value('Employee', { 'user_id': userEmail }, ['date_of_birth', 'name']);
         // frappe.msgprint({
         //     title: __(data.message.title),
         //     message: __(data.message.message),
@@ -96,8 +90,8 @@ $(document).on('app_ready', function () {
                         args: {
                             doc: {
                             doctype: 'Event Broadcast',
-                            event_doctype: 'Employee',
-                            docname: empResponse.message.name,
+                            event_doctype: 'User',
+                            docname: userEmail,
                             message: data.message.name,
                             seen: 1
                         }

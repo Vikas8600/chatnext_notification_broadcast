@@ -11,18 +11,21 @@ class EventBroadcast(Document):
 
 
 def get_today_birthdays():
-    """Fetch all employees with birthdays today."""
-    today_date = getdate(today())  # Fetch today's date
-    
-    # Query the Employee Doctype for matching birth dates
-    employees_with_birthdays = frappe.get_all(
-        'Employee',
-        filters={'date_of_birth': today_date},
-        fields=['name', 'employee_name', 'date_of_birth', 'company', 'department']
-    )
-    for employee in employees_with_birthdays:
-        create_broadcast_for_employee(employee)
-    return
+    try:
+        """Fetch all employees with birthdays today."""
+        today_date = getdate(today())  # Fetch today's date
+        
+        # Query the Employee Doctype for matching birth dates
+        employees_with_birthdays = frappe.get_all(
+            'Employee',
+            filters={'date_of_birth': today_date},
+            fields=['name', 'employee_name', 'date_of_birth', 'company', 'department']
+        )
+        for employee in employees_with_birthdays:
+            create_broadcast_for_employee(employee)
+        return
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), "event_notification")
 
 def create_broadcast_for_employee(doc):
     event_broadcast = frappe.new_doc("Event Broadcast")
