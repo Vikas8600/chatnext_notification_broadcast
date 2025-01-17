@@ -44,7 +44,7 @@ async function checkAndShowBirthdayMessage() {
                       },
                       callback: function (response) {
                           if (!response.exc) {
-                              frappe.msgprint('You will not see this message again.');
+                              console.log('You will not see this message again.');
                           }
                       }
                   });
@@ -52,9 +52,6 @@ async function checkAndShowBirthdayMessage() {
               }
           });
           messageDialog.show();
-
-
-
         }
   } catch (error) {
       console.error("Error fetching birth date:", error);
@@ -71,12 +68,52 @@ setTimeout(() => {
 
 
 $(document).on('app_ready', function () {
-  frappe.realtime.on("event_notification", (data) => {
-        frappe.msgprint({
-            title: __(data.message.title),
-            message: __(data.message.message),
-            indicator: data.message.indicator,
-            label: 'GO TO MESSAGE'
+  frappe.realtime.on("event_notification", async(data) => {
+    const userEmail = window.frappe.session.user;
+    let empResponse = await frappe.db.get_value('Employee', { 'user_id': userEmail }, ['date_of_birth', 'name']);
+        // frappe.msgprint({
+        //     title: __(data.message.title),
+        //     message: __(data.message.message),
+        //     indicator: data.message.indicator,
+        //     label: 'GO TO MESSAGE'
+        // });
+
+
+        const messageDialog = new frappe.ui.Dialog({
+            title: data.message.title,
+            fields: [
+                {
+                    fieldname: 'message',
+                    fieldtype: 'HTML',
+                    options: data.message.message
+                }
+            ],
+            primary_action_label: 'Close',
+            primary_action: function () {
+                // Call API to mark message as seen when the button is clicked
+                frappe.call({
+                    method: 'frappe.client.insert',
+                        args: {
+                            doc: {
+                            doctype: 'Event Broadcast',
+                            event_doctype: 'Employee',
+                            docname: empResponse.message.name,
+                            message: data.message.name,
+                            seen: 1
+                        }
+                    },
+                    callback: function (response) {
+                        if (!response.exc) {
+                            console.log('You will not see this message again.');
+                        }
+                    }
+                });
+                messageDialog.hide();
+            }
         });
+        messageDialog.show();
+
+
+
   });
 });
