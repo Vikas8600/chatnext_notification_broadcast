@@ -1,0 +1,46 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"_SSxdBvUmm\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Event Broadcasting</span>\",\"col\":12}},{\"id\":\"kyuJU_ObIR\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Event Notification\",\"col\":6}},{\"id\":\"FiuJpeXqZa\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Event Broadcast\",\"col\":5}}]",
+ "creation": "2025-01-17 10:40:24.910144",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "notification",
+ "idx": 0,
+ "indicator_color": "green",
+ "is_hidden": 0,
+ "label": "Event Broadcasting",
+ "links": [],
+ "modified": "2025-01-17 10:41:21.086655",
+ "modified_by": "Administrator",
+ "module": "Chatnext Notification Broadcast",
+ "name": "Event Broadcasting",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 28.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Event Notification",
+   "link_to": "Event Notification",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Event Broadcast",
+   "link_to": "Event Broadcast",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Event Broadcasting"
+}

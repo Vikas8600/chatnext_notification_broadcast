@@ -45,7 +45,7 @@
  "modified": "2025-01-16 12:51:05.634203",
  "modified_by": "Administrator",
  "module": "Chatnext Notification Broadcast",
- "name": "Chatnext Notification",
+ "name": "Event Notification",
  "owner": "Administrator",
  "permissions": [
   {

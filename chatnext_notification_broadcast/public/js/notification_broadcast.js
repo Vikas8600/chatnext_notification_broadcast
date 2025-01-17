@@ -10,18 +10,18 @@ async function checkAndShowBirthdayMessage() {
           console.log("Birth date not found");
           return;
       }
-      const all_messges = await frappe.db.get_list('Chatnext Broadcast', {
+      const all_messges = await frappe.db.get_list('Event Broadcast', {
         fields: ['name'],filters: {event_doctype: 'Employee',docname: response.message.name, seen: 0}
       });
       for (let i = 0; i < all_messges.length; i++) {
           // Check if the message has been seen before
-          const seenResponse = await frappe.db.get_value('Chatnext Broadcast', { 'name': all_messges[i].name }, ['*']);
+          const seenResponse = await frappe.db.get_value('Event Broadcast', { 'name': all_messges[i].name }, ['*']);
           if (seenResponse.message.seen) {
               console.log("User has already seen the message.");
               return;  // Do not show the message again
           }
           // Show the birthday message dialog
-          const messageResponse = await frappe.db.get_value('Chatnext Notification', {"name":seenResponse.message.message}, ['title', 'message']);
+          const messageResponse = await frappe.db.get_value('Event Notification', {"name":seenResponse.message.message}, ['title', 'message']);
           const messageDialog = new frappe.ui.Dialog({
               title: messageResponse.message.title,
               fields: [
@@ -37,7 +37,7 @@ async function checkAndShowBirthdayMessage() {
                   frappe.call({
                       method: 'frappe.client.set_value',
                       args: {
-                          doctype: 'Chatnext Broadcast',
+                          doctype: 'Event Broadcast',
                           name: seenResponse.message.name,
                           fieldname: 'seen',
                           value: 1
@@ -71,7 +71,7 @@ setTimeout(() => {
 
 
 $(document).on('app_ready', function () {
-  frappe.realtime.on("chatnext_notification", (data) => {
+  frappe.realtime.on("event_notification", (data) => {
         frappe.msgprint({
             title: __(data.message.title),
             message: __(data.message.message),

@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestChatnextBroadcast(FrappeTestCase):
+class TestEventNotification(FrappeTestCase):
 	pass
