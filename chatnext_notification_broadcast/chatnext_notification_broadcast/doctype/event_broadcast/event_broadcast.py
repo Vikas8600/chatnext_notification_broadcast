@@ -29,8 +29,8 @@ def get_today_birthdays():
 
 def create_broadcast_for_employee(doc):
     event_broadcast = frappe.new_doc("Event Broadcast")
-    event_broadcast.event_doctype = "Employee"
-    event_broadcast.docname = doc.name
+    event_broadcast.event_doctype = "User"
+    event_broadcast.docname = doc.user_id
     event_broadcast.message = get_birthday_message()
     event_broadcast.save()
 
