@@ -148,11 +148,9 @@ app_include_js = "/assets/chatnext_notification_broadcast/js/notification_broadc
 # ---------------
 
 scheduler_events = {
-    "cron": {
-        "daily": [
-            "chatnext_notification_broadcast.chatnext_notification_broadcast.doctype.event_broadcast.event_broadcast.get_today_birthdays"
-        ]
-    }
+    "daily": [
+        "chatnext_notification_broadcast.chatnext_notification_broadcast.doctype.event_broadcast.event_broadcast.get_today_birthdays"
+    ]
 }
 # scheduler_events = {
 # 	"all": [
