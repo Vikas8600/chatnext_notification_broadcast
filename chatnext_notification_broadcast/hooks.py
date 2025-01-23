@@ -142,7 +142,7 @@ app_include_js = "/assets/chatnext_notification_broadcast/js/notification_broadc
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 # 	}
-# }
+# } 
 
 # Scheduled Tasks
 # ---------------
@@ -150,7 +150,7 @@ app_include_js = "/assets/chatnext_notification_broadcast/js/notification_broadc
 scheduler_events = {
     "cron": {
         "0 8 * * *": [
-            "chatnext_notification_broadcast.chatnext_notification_broadcast.doctype.chatnext_broadcast.chatnext_broadcast.get_today_birthdays"
+            "chatnext_notification_broadcast.chatnext_notification_broadcast.doctype.event_broadcast.event_broadcast.get_today_birthdays"
         ]
     }
 }
